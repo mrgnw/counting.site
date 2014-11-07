@@ -1,32 +1,32 @@
 <head>
-  <title>Recipes</title>
+  <title>Snacks. Yum!</title>
 </head>
 
 <body>
   <div class="container">
     <header>
-      <h1>Recipes</h1>
+      <h1>Snacks. Yum!</h1>
 
-      <form class="new-task">
-        <input type="text" name="text" placeholder="Type to add new tasks" />
+      <form class="new-snack">
+        <input type="text" name="text" placeholder="Type to add new snacks" />
       </form>
     </header>
 
     <ul>
-      {{#each tasks}}
-        {{> task}}
+      {{#each snacks}}
+        {{> snack}}
       {{/each}}
     </ul>
   </div>
   <script src="o.less"></script>
 </body>
 
-<template name="task">
+<template name="snack">
   <li class="{{#if checked}}checked{{/if}}">
-    <button class="delete">&times;</button>
+    <!-- <button class="delete">&times;</button> -->
 
     <button class="upVote">{{votes}}</button> 
-    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+<!--     <input type="checkbox" checked="{{checked}}" class="toggle-checked" /> -->
     <span class="text">{{text}}</span>
   </li>
 </template>

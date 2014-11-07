@@ -1,22 +1,23 @@
-Tasks = new Mongo.Collection("tasks");
+Snacks = new Mongo.Collection("snacks");
 
 if (Meteor.isClient) {
   // This code only runs on the client
   Template.body.helpers({
-    tasks: function () {
-      // Show newest tasks first
-      return Tasks.find({}, {sort: {votes: -1}});
+    snacks: function () {
+      // Show most popular snacks first
+      return Snacks.find({}, {sort: {votes: -1}});
     }
   });
 
   Template.body.events({
-    "submit .new-task": function (event) {
-      // This function is called when the new task form is submitted
+    "submit .new-snack": function (event) {
+      // This function is called when the new snack form is submitted
       var text = event.target.text.value;
 
-      Tasks.insert({
+      Snacks.insert({
         text: text,
         votes: 0,
+        likers: [],
         createdAt: new Date() // current time
       });
 
@@ -28,21 +29,21 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.task.events({
+  Template.snack.events({
   "click .toggle-checked": function () {
     // Set the checked property to the opposite of its current value
-    Tasks.update(this._id, {$set: {checked: ! this.checked}});
+    Snacks.update(this._id, {$set: {checked: ! this.checked}});
   },
   "click .delete": function () {
-    Tasks.remove(this._id);
+    Snacks.remove(this._id);
   }
 });
 
 
-  Template.task.events({
+  Template.snack.events({
     "click .upVote": function () {
       // increase current votes by 1
-      Tasks.update(this._id, {$set: {votes: this.votes +1 }});
+      Snacks.update(this._id, {$set: {votes: this.votes +1 }});
     }
   });
 
