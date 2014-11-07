@@ -1,11 +1,11 @@
 <head>
-  <title>Todo List</title>
+  <title>Recipes</title>
 </head>
 
 <body>
   <div class="container">
     <header>
-      <h1>Todo List</h1>
+      <h1>Recipes</h1>
 
       <form class="new-task">
         <input type="text" name="text" placeholder="Type to add new tasks" />
@@ -25,8 +25,8 @@
   <li class="{{#if checked}}checked{{/if}}">
     <button class="delete">&times;</button>
 
+    <button class="upVote">{{votes}}</button> 
     <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
-
     <span class="text">{{text}}</span>
   </li>
 </template>

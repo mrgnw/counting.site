@@ -16,6 +16,7 @@ if (Meteor.isClient) {
 
       Tasks.insert({
         text: text,
+        votes: 0,
         createdAt: new Date() // current time
       });
 
@@ -36,5 +37,13 @@ if (Meteor.isClient) {
     Tasks.remove(this._id);
   }
 });
+
+
+  Template.task.events({
+    "click .upVote": function () {
+      // increase current votes by 1
+      Tasks.update(this._id, {$set: {votes: this.votes +1 }});
+    }
+  });
 
 }
