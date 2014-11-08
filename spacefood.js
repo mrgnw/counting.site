@@ -1,21 +1,20 @@
 Snacks = new Mongo.Collection("snacks");
 
+// CLIENT
 if (Meteor.isClient) {
-  // This code only runs on the client
+  Meteor.subscribe("snacks");
+
   Template.body.helpers({
     snacks: function () { // Show most popular snacks first
       return Snacks.find({}, {sort: {votes: -1, data_ins: -1}});
     }
-
   });
 
   Template.body.events({
     "submit .new-snack": function (event) {
       Meteor.call("addSnack", event.target.text.value);
-      // Clear form
-      event.target.text.value = "";
-      // Prevent default form submit
-      return false;
+      event.target.text.value = "";  // Clear form
+      return false; // Prevent default form submit
     }
   });
 
@@ -39,6 +38,7 @@ if (Meteor.isClient) {
 } // isClient
 
 
+// METHODS
 Meteor.methods({
   addSnack: function (text) {
     // Make sure the user is logged in before inserting a snack
@@ -81,3 +81,11 @@ Meteor.methods({
   }
 
 });
+
+
+// SERVER
+if (Meteor.isServer) {
+  Meteor.publish("snacks", function () {
+    return Snacks.find();
+  });
+}
