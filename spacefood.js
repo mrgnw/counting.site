@@ -54,8 +54,9 @@ if (Meteor.isClient) {
         Snacks.update(this._id, {$set: {votes: this.votes +1 }});
 
         // Add current user to likers
-        Snacks.update(this._id, {$push: {likers:  user }});
-        // pull Snacks.update(this._id, {$pull: {likers: 3}});
+        // Snacks.update(this._id, {$push: {likers: user }});
+        // Remove current user from likers
+        Snacks.update(this._id, {$pull: {likers: user }});
 
 
 
