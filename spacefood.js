@@ -5,7 +5,7 @@ if (Meteor.isClient) {
   Template.body.helpers({
     snacks: function () {
       // Show most popular snacks first
-      return Snacks.find({}, {sort: {votes: -1}});
+      return Snacks.find({}, {sort: {votes: -1, data_ins: 1}});
     }
   });
 
@@ -16,8 +16,8 @@ if (Meteor.isClient) {
 
       Snacks.insert({
         text: text,
-        votes: 0,
-        likers: [],
+        votes: 1,
+        likers: [Meteor.user().username],
         createdAt: new Date() // current time
       });
 
@@ -36,15 +36,17 @@ if (Meteor.isClient) {
   },
   "click .delete": function () {
     Snacks.remove(this._id);
+  },
+  "click .upVote": function () {
+    // increase current votes by 1
+    Snacks.update(this._id, {$set: {votes: this.votes +1 }});
   }
+
+
 });
 
-
-  Template.snack.events({
-    "click .upVote": function () {
-      // increase current votes by 1
-      Snacks.update(this._id, {$set: {votes: this.votes +1 }});
-    }
+  Accounts.ui.config({
+    passwordSignupFields: "USERNAME_ONLY"
   });
 
-}
+} // isClient

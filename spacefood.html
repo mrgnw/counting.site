@@ -6,11 +6,15 @@
   <div class="container">
     <header>
       <h1>Snacks. Yum!</h1>
+      {{> loginButtons}}
 
+      {{#if currentUser}}
       <form class="new-snack">
         <input type="text" name="text" placeholder="Type to add new snacks" />
       </form>
+      {{/if}}
     </header>
+
 
     <ul>
       {{#each snacks}}
@@ -23,10 +27,12 @@
 
 <template name="snack">
   <li class="{{#if checked}}checked{{/if}}">
-    <!-- <button class="delete">&times;</button> -->
+    <button class="delete">&times;</button>
 
-    <button class="upVote">{{votes}}</button> 
-<!--     <input type="checkbox" checked="{{checked}}" class="toggle-checked" /> -->
-    <span class="text">{{text}}</span>
+    <button class="upVote">{{votes}}</button>
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+    <span class="text">{{text}}
+      {{#if likers }}(<strong>{{likers}}</strong>) {{/if}}
+      </span>
   </li>
 </template>
