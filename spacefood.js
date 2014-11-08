@@ -47,7 +47,7 @@ if (Meteor.isClient) {
     Snacks.update(this._id, {$set: {votes: this.votes +1 }});
 
     // Add current user to likers
-    Snacks.update(this._id, {$push: {likers: { $each: ['steve', 'george']}}})
+    Snacks.update(this._id, {$push: {likers: { $each: [Meteor.user().username]}}})
   }
 
 //   db.students.update(
