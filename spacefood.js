@@ -45,7 +45,15 @@ if (Meteor.isClient) {
   "click .upVote": function () {
     // increase current votes by 1
     Snacks.update(this._id, {$set: {votes: this.votes +1 }});
+
+    // Add current user to likers
+    Snacks.update(this._id, {$push: {likers: { $each: ['steve', 'george']}}})
   }
+
+//   db.students.update(
+//    { name: "joe" },
+//    { $push: { scores: { $each: [ 90, 92, 85 ] } } }
+// )
 
 
 });
