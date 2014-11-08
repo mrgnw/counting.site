@@ -30,8 +30,6 @@ if (Meteor.isClient) {
   });
 
 
-  // TODO: Add current user to snack.likers
-  // Meteor.user().username
   // TODO: Like/dislike based on current user
   // TODO: Highlight current user likes
   Template.snack.events({
@@ -43,11 +41,29 @@ if (Meteor.isClient) {
     Snacks.remove(this._id);
   },
   "click .upVote": function () {
-    // increase current votes by 1
-    Snacks.update(this._id, {$set: {votes: this.votes +1 }});
+    // If logged in:
+    var user = Meteor.user().username;
 
-    // Add current user to likers
-    Snacks.update(this._id, {$push: {likers: { $each: [Meteor.user().username]}}})
+
+    if(user){
+        //  if user in likers: dislike, remove
+
+
+        //  else: like, add
+        // increase current votes by 1
+        Snacks.update(this._id, {$set: {votes: this.votes +1 }});
+
+        // Add current user to likers
+        Snacks.update(this._id, {$push: {likers:  user }});
+        // pull Snacks.update(this._id, {$pull: {likers: 3}});
+
+
+
+      }
+
+    // If not logged in: #donothing
+
+
   }
 });
 
