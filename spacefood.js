@@ -4,7 +4,7 @@ if (Meteor.isClient) {
   // This code only runs on the client
   Template.body.helpers({
     snacks: function () { // Show most popular snacks first
-      return Snacks.find({}, {sort: {votes: -1, data_ins: 1}});
+      return Snacks.find({}, {sort: {votes: -1, data_ins: -1}});
     }
 
   });
@@ -65,7 +65,7 @@ Meteor.methods({
   toggleLike: function(snack) {
     // If logged in:
     var user = Meteor.user().username;
-    likers = Snacks.findOne(this._id).likers;
+    likers = Snacks.findOne(snack._id).likers;
     isLiker = (likers.indexOf(user) != -1);
 
     function dislike (snack) { // -1, remove user from likers
@@ -80,8 +80,8 @@ Meteor.methods({
 
     if(user){
       //  DISLIKE: User in likers
-      if(isLiker){ dislike(this);
-      } else { like(this);
+      if(isLiker){ dislike(snack);
+      } else { like(snack);
       }
     } else {
       // not logged in
