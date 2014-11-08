@@ -29,6 +29,11 @@ if (Meteor.isClient) {
     }
   });
 
+
+  // TODO: Add current user to snack.likers
+  // Meteor.user().username
+  // TODO: Like/dislike based on current user
+  // TODO: Highlight current user likes
   Template.snack.events({
   "click .toggle-checked": function () {
     // Set the checked property to the opposite of its current value
