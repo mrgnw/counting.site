@@ -49,13 +49,6 @@ if (Meteor.isClient) {
     // Add current user to likers
     Snacks.update(this._id, {$push: {likers: { $each: [Meteor.user().username]}}})
   }
-
-//   db.students.update(
-//    { name: "joe" },
-//    { $push: { scores: { $each: [ 90, 92, 85 ] } } }
-// )
-
-
 });
 
   Accounts.ui.config({
