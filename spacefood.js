@@ -11,13 +11,9 @@ if (Meteor.isClient) {
 
   Template.body.events({
     "submit .new-snack": function (event) {
-      // This function is called when the new snack form is submitted
-      var text = event.target.text.value;
-
-      Meteor.call("addSnack", text);
+      Meteor.call("addSnack", event.target.text.value);
       // Clear form
       event.target.text.value = "";
-
       // Prevent default form submit
       return false;
     }
@@ -26,7 +22,6 @@ if (Meteor.isClient) {
   // TODO: Highlight current user likes
   Template.snack.events({
   "click .toggle-checked": function () {
-    // Set the checked property to the opposite of its current value
     Meteor.call("setChecked", this._id, ! this.checked);
   },
   "click .delete": function () {
@@ -68,25 +63,21 @@ Meteor.methods({
     likers = Snacks.findOne(snack._id).likers;
     isLiker = (likers.indexOf(user) != -1);
 
-    function dislike (snack) { // -1, remove user from likers
-      Snacks.update(snack._id, {$set: {votes: snack.votes - 1 }});
-      Snacks.update(snack._id, {$pull: {likers: user }});
+    function dislike (nasty) { // -1, remove user from likers
+      Snacks.update(nasty._id, {$set: {votes: nasty.votes - 1 }});
+      Snacks.update(nasty._id, {$pull: {likers: user }});
     }
 
-    var like = function(snack) { // +1, add user to likers
-      Snacks.update(snack._id, {$set: {votes: snack.votes + 1 }});
-      Snacks.update(snack._id, {$push: {likers: user }});
+    var like = function(tasty) { // +1, add user to likers
+      Snacks.update(tasty._id, {$set: {votes: tasty.votes + 1 }});
+      Snacks.update(tasty._id, {$push: {likers: user }});
     }
 
     if(user){
-      //  DISLIKE: User in likers
-      if(isLiker){ dislike(snack);
-      } else { like(snack);
-      }
-    } else {
-      // not logged in
-      // todo: ask to log in.
+      if(isLiker){ dislike(snack); }
+      else { like(snack); }
     }
+    else { /* todo: ask to log in. */ }
   }
 
 });
