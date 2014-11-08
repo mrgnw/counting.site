@@ -7,9 +7,9 @@
       {{> loginButtons}}
 
       {{#if currentUser}}
-      <form class="new-snack">
-        <input type="text" name="text" placeholder="Type to add new snacks" />
-      </form>
+        {{> form }}
+      {{else}}
+      <h3> ^^ Sign in to add & vote on snacks.</h3>
       {{/if}}
     </header>
 
@@ -22,9 +22,17 @@
   <script src="o.less"></script>
 </body>
 
+<template name="form">
+  <form class="new-snack">
+    <input type="text" name="text" placeholder="Type to add new snacks" />
+  </form>
+</template>
+
 <template name="snack">
   <li class="{{#if checked}}checked{{/if}}">
+    {{# if currentUser}}
     <button class="delete">&times;</button>
+    {{/ if }}
 
     <button class="upVote">{{votes}}</button>
     <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
