@@ -5,9 +5,7 @@
 
 meteor-platform
 autopublish
-insecure
 simison:bootstrap3-less
 less
 accounts-ui
 accounts-password
-
