@@ -7,19 +7,22 @@
       <!-- {{> loginButtons}} -->
 
       <!-- {{#if currentUser}}
-        {{> form }}
+
       {{else}}
       <h3> ^^ Sign in to view & punch your times</h3>
       {{/if}} -->
+
+      <button class="new-punch">Ahoy!</button>
     </header>
 
     <ul>
-      {{#each snacks}}
-        {{> snack}}
+      <li>Hi, bob.</li>
+      {{#each days}}
+        {{> day}}
       {{/each}}
     </ul>
   </div>
-  <script src="o.less"></script>
+
 </body>
 
 <template name="form">
@@ -28,16 +31,8 @@
   </form>
 </template>
 
-<template name="snack">
-  <li class="{{#if checked}}checked{{/if}}">
-    {{# if currentUser}}
-    <button class="delete">&times;</button>
-    {{/ if }}
-
-    <button class="upVote">{{votes}}</button>
-    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
-    <span class="text">{{text}}
-      {{#if likers }}<i class='likers'>({{likers}})</i> {{/if}}
-      </span>
+<template name="day">
+  <li class="{{#if onTime}}onTime{{/if}}">
+    <span class="text">{{time}} </span>
   </li>
 </template>
