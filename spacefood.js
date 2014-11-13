@@ -11,7 +11,7 @@ if (Meteor.isClient) {
   });
 
   Template.body.events({
-    "submit .new-punch": function (event) {
+    "click .new-punch": function (event) {
       Meteor.call("addPunch");
       // event.target.text.value = "";  // Clear form
       return false; // Prevent default form submit
@@ -32,6 +32,8 @@ Meteor.methods({
     Days.insert({
       time: new Date() // current time
     });
+
+    console.log(Days);
   },
 });
 
