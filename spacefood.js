@@ -1,5 +1,15 @@
 Days = new Mongo.Collection("days");
 
+UI.registerHelper("dd", function(timestamp) {
+    date = timestamp.getDate();
+    return date;
+});
+
+UI.registerHelper("hhss", function(timestamp) {
+    hh = timestamp.getHours() + ":" + timestamp.getMinutes();
+    return hh;
+});
+
 // CLIENT
 if (Meteor.isClient) {
   Meteor.subscribe("days");
