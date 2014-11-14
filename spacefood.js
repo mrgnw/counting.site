@@ -1,4 +1,5 @@
 Days = new Mongo.Collection("days");
+// TODO: create Goal
 
 UI.registerHelper("dd", function(timestamp) {
     date = timestamp.getDate();
@@ -6,8 +7,13 @@ UI.registerHelper("dd", function(timestamp) {
 });
 
 UI.registerHelper("hhss", function(timestamp) {
-    hh = timestamp.getHours() + ":" + timestamp.getMinutes();
-    return hh;
+    hh = timestamp.getHours()
+    mm = timestamp.getMinutes();
+    display = hh + ":";
+    if (mm < 10) { display += "0" + mm; }
+      else { display += mm; }
+
+    return display;
 });
 
 // CLIENT
@@ -25,6 +31,10 @@ if (Meteor.isClient) {
       Meteor.call("addPunch");
       // event.target.text.value = "";  // Clear form
       return false; // Prevent default form submit
+    },
+    "submit .new-goal": function (event) {
+      Meteor.call("changeGoal");
+      return false;
     }
   });
 
@@ -38,13 +48,21 @@ if (Meteor.isClient) {
 // METHODS
 Meteor.methods({
   addPunch: function () {
-    // todo: check if today already exists
-    Days.insert({
-      time: new Date() // current time
-    });
+    var start = new Date();
+    start.setHours(0,0,0);
+    var end = new Date();
+    end.setHours(23,59,59);
+    var x = Days.find({time: {$gte: start, $lt: end}}).count();
 
-    console.log(Days);
+    if (x == 0) {
+      Days.insert({ time: new Date() });
+    } else {
+      console.log("You already have an entry on that date");
+    }
   },
+  changeGoal: function (time) {
+    // TODO: update goal
+  }
 });
 
 
@@ -53,4 +71,6 @@ if (Meteor.isServer) {
   Meteor.publish("days", function () {
     return Days.find();
   });
+
+  // publish goal
 }
