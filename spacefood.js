@@ -35,7 +35,11 @@ if (Meteor.isClient) {
     "submit .new-goal": function (event) {
       Meteor.call("changeGoal");
       return false;
-    }
+    },
+    "click .nuke": function (event) {
+      Meteor.call("nuke");
+      return false; // Prevent default form submit
+    },
   });
 
   Accounts.ui.config({
@@ -62,6 +66,11 @@ Meteor.methods({
   },
   changeGoal: function (time) {
     // TODO: update goal
+  },
+  nuke : function () {
+    // nuke the db
+    Days.remove({})
+    console.log("You shouldn't have pressed it! We're DOOOMED!");
   }
 });
 
