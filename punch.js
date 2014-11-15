@@ -3,6 +3,8 @@ Days = new Mongo.Collection("days");
 goal = new Date();
 goal.setHours(8, 30);
 
+var unlimited = false;
+
 UI.registerHelper("dd", function(timestamp) {
     date = timestamp.getDate();
     return date;
@@ -22,6 +24,15 @@ function isOnTime(time) {
   return time > goal;
 }
 
+function isFirstToday(){
+  var start = new Date();
+  start.setHours(0,0,0);
+  var end = new Date();
+  end.setHours(23,59,59);
+  var x = Days.find({time: {$gte: start, $lt: end}}).count();
+  return (x < 1);
+}
+
 // CLIENT
 if (Meteor.isClient) {
   Meteor.subscribe("days");
@@ -38,14 +49,6 @@ if (Meteor.isClient) {
     days: function () { // Show most popular snacks first
       return Days.find({}, {sort: {votes: -1, data_ins: -1}});
     },
-    isOnTime: function(time) {
-      // see if you met your goal
-      //
-      // async call
-      // Meteor.call('isOnTime', time);
-
-
-    }
   });
 
   Template.body.events({
@@ -74,13 +77,10 @@ if (Meteor.isClient) {
 // METHODS
 Meteor.methods({
   addPunch: function () {
-    var start = new Date();
-    start.setHours(0,0,0);
-    var end = new Date();
-    end.setHours(23,59,59);
-    var x = Days.find({time: {$gte: start, $lt: end}}).count();
-    //
-    if (x == 0) {
+    if (isFirstToday()) {
+      Days.insert({ time: new Date() });
+    } else if (unlimited){
+      console.log("You. Are. LIMITLESS")
       Days.insert({ time: new Date() });
     } else {
       console.log("You already have an entry on that date");
@@ -96,7 +96,7 @@ Meteor.methods({
   },
   isOnTime: function(time) {
     // Make the dates match
-    console.log("METEOR " + time < goal);
+    console.log("On Time: " + time < goal);
     return (time < goal);
   }
 
