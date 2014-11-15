@@ -1,9 +1,25 @@
 Days = new Mongo.Collection("days");
 
 goal = new Date();
-goal.setHours(8, 30);
+goal.setHours(10, 24);
 
-var unlimited = false;
+var unlimited = true;
+if (unlimited)(console.log("You. Are. LIMITLESS"));
+
+var dayCount = 1
+function randomDate() {
+    var start = new Date();
+    var end = new Date();
+    end.setHours(14, 26);
+
+    var result = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
+    console.log("result: " + result);
+    result.setDate(new Date().getDate() + dayCount);
+    console.log("new result: " + result);
+    dayCount += 1;
+
+    return result;
+}
 
 UI.registerHelper("dd", function(timestamp) {
     date = timestamp.getDate();
@@ -21,7 +37,7 @@ UI.registerHelper("hhss", function(timestamp) {
 });
 
 function isOnTime(time) {
-  return time > goal;
+  return time <= goal;
 }
 
 function isFirstToday(){
@@ -39,8 +55,6 @@ if (Meteor.isClient) {
 
   Template.day.helpers({
   isOnTime: function (t) {
-    console.log("the time is " + t);
-    console.log(goal);
     return (t < goal);
   }
 });
@@ -80,8 +94,7 @@ Meteor.methods({
     if (isFirstToday()) {
       Days.insert({ time: new Date() });
     } else if (unlimited){
-      console.log("You. Are. LIMITLESS")
-      Days.insert({ time: new Date() });
+      Days.insert({ time: randomDate() });
     } else {
       console.log("You already have an entry on that date");
     }
