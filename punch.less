@@ -1,43 +1,71 @@
+@import "flex";
+@import "compatibility";
 
-@1x: 5em;
+@1x: 4em;
 @half: @1x / 2;
-@double: @1x * 2;
+@quart: @1x / 4;
+@gap: @1x / 16;
+@2x: @1x * 2;
 
-.onTime {
-  color: rgb(0, 128, 255);
+@dim: rgba(255,255,255,.3);
+@clear: rgba(0,0,0,0);
+
+.circled(@size:@1x) {
+  width: @size;
+  height: @size;
+  font-size: @size/2;
+  border-radius: @size/2;
+
 }
 
 button {
-  width: @1x;
-  height: @1x;
-  font-size: @half;
-  border-radius: @half;
-  border-width: 0px;
+  .circled();
+  margin: @gap;
+}
+
+.new-punch {
   background-color: white;
+  &:active { color: rgb(0,128,255); }
+  .bordered;
+}
+
+.day {
+  .bordered(2px, white);
+  background-color: @dim;
+}
+
+.nuke {
+  background-color: #aa0000;
+  color: white;
+  .bordered;
+}
+
+.onTime {
+  color: rgb(0, 128, 255);
+  .bordered(2px, white);
 }
 
 .absolute {
   background-attachment: fixed;
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 0;
-  margin: 0;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  padding: 0px;
+  margin: 0px;
 }
 
-.sunset {
-  background-image: linear-gradient(to bottom, #315481, #918e82 100%);
+.gradient(@from, @to){
+  background-image: linear-gradient(to bottom, @from, @to 100%);
 }
 
-.sunrise {
-  background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
-}
+.sunset { .gradient(#315481, #918e82) }
+.evening { .gradient(#212188, #315481) }
+.morning { .gradient(#d0edf5, #e1e5f0) }
 
 body {
-  font-family: sans-serif;
-  .sunset;
+  .morning;
   .absolute;
 }
 
@@ -45,39 +73,7 @@ body {
   display: block;
 }
 
-h1 {
-  font-size: 1.5em;
-  margin: 0;
-  margin-bottom: 10px;
-  display: inline-block;
-  margin-right: 1em;
-}
-
-form {
-  margin-top: 10px;
-  margin-bottom: -10px;
-  position: relative;
-}
-
-.new-snack input {
-  box-sizing: border-box;
-  padding: 10px 0;
-  background: transparent;
-  border: none;
-  width: 100%;
-  padding-right: 80px;
-  font-size: 1em;
-}
-
-.new-snack input:focus{
-  outline: 0;
-}
-
 .grid {
-
-
-}
-
-.nuke {
-  background-color: #ff0000;
+  .flex-display(inline-flex);
+  .flex-wrap(wrap);
 }

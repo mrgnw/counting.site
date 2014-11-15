@@ -8,21 +8,22 @@
     <h3> ^^ Sign in to view & punch your times</h3>
     {{/if}} -->
 
-
-
     <button class="new-punch">Ahoy!</button>
       {{#each days}}
         {{> day}}
       {{/each}}
-      <button class="nuke">The red button</button>
+      <button class="nuke">red button</button>
+
   </div>
 
 </body>
 
 <template name="day">
   <button class="day">
-  <span class="{{#if isOnTime}}onTime{{/if}}">
+  <span class="{{#if isOnTime }}onTime{{/if}}">
+
     <span class="text">{{dd time}} </span>
+    <br>
     <span class="text">{{hhss time}} </span>
   </span>
   </button>

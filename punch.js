@@ -1,5 +1,5 @@
 Days = new Mongo.Collection("days");
-// TODO: create Goal
+
 goal = new Date();
 goal.setHours(8, 30);
 
@@ -57,17 +57,17 @@ if (Meteor.isClient) {
 // METHODS
 Meteor.methods({
   addPunch: function () {
-    // var start = new Date();
-    // start.setHours(0,0,0);
-    // var end = new Date();
-    // end.setHours(23,59,59);
-    // var x = Days.find({time: {$gte: start, $lt: end}}).count();
+    var start = new Date();
+    start.setHours(0,0,0);
+    var end = new Date();
+    end.setHours(23,59,59);
+    var x = Days.find({time: {$gte: start, $lt: end}}).count();
     //
-    // if (x == 0) {
+    if (x == 0) {
       Days.insert({ time: new Date() });
-    // } else {
-    //   console.log("You already have an entry on that date");
-    // }
+    } else {
+      console.log("You already have an entry on that date");
+    }
   },
   changeGoal: function (time) {
     // TODO: update goal
@@ -79,10 +79,8 @@ Meteor.methods({
   },
   isOnTime: function(time) {
     // Make the dates match
-
-
-
-    return time < goal;
+    console.log(time < goal);
+    return (time < goal);
   }
 
 });
