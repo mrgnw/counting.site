@@ -1,39 +1,29 @@
 <head> <title>Punch it!</title> </head>
 
 <body>
-  <div class="container">
-    <header>
-      <!-- {{> loginButtons}} -->
+  <div class="grid">
+    <!-- {{> loginButtons}}
+    {{#if currentUser}}
+    {{else}}
+    <h3> ^^ Sign in to view & punch your times</h3>
+    {{/if}} -->
 
-      <!-- {{#if currentUser}}
 
-      {{else}}
-      <h3> ^^ Sign in to view & punch your times</h3>
-      {{/if}} -->
 
-      <button class="new-punch">Ahoy!</button>
-      <!-- <button class="nuke" style="background-color: #ff0000;">The red button</button> -->
-    </header>
-
-    <ul>
+    <button class="new-punch">Ahoy!</button>
       {{#each days}}
         {{> day}}
       {{/each}}
-    </ul>
+      <button class="nuke">The red button</button>
   </div>
 
 </body>
 
-<template name="form">
-  <form class="new-snack">
-    <input type="text" name="text" placeholder="Type to add new snacks" />
-  </form>
-</template>
-
 <template name="day">
-  <li class="{{#if isOnTime}}onTime{{/if}}">
+  <button class="day">
+  <span class="{{#if isOnTime}}onTime{{/if}}">
     <span class="text">{{dd time}} </span>
     <span class="text">{{hhss time}} </span>
-
-  </li>
+  </span>
+  </button>
 </template>
