@@ -1,5 +1,7 @@
 Days = new Mongo.Collection("days");
 // TODO: create Goal
+goal = new Date();
+goal.setHours(8, 30);
 
 UI.registerHelper("dd", function(timestamp) {
     date = timestamp.getDate();
@@ -40,6 +42,9 @@ if (Meteor.isClient) {
       Meteor.call("nuke");
       return false; // Prevent default form submit
     },
+    "isOnTime": function(time) {
+      Meteor.call("isOnTime");
+    }
   });
 
   Accounts.ui.config({
@@ -71,7 +76,15 @@ Meteor.methods({
     // nuke the db
     Days.remove({})
     console.log("You shouldn't have pressed it! We're DOOOMED!");
+  },
+  isOnTime: function(time) {
+    // Make the dates match
+
+    
+
+    return time < goal;
   }
+
 });
 
 
