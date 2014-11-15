@@ -19,30 +19,34 @@
 }
 
 button {
-  .circled();
   margin: @gap;
 }
 
 .new-punch {
+  .circled();
   background-color: white;
   &:active { color: rgb(0,128,255); }
   .bordered;
 }
 
 .day {
-  .bordered(2px, white);
-  background-color: @dim;
-}
-
-.nuke {
-  background-color: #aa0000;
-  color: white;
-  .bordered;
+  .circled(3.5em);
+  background-color: @clear;
+  color: rgba(0,0,0,.5);
+  .bordered(2px, @dim);
 }
 
 .onTime {
-  color: rgb(0, 128, 255);
+  background-color: white;
+  color: rgb(0,128,255);
   .bordered(2px, white);
+}
+
+.nuke {
+  .circled();
+  background-color: #aa0000;
+  color: white;
+  .bordered;
 }
 
 .absolute {
@@ -65,7 +69,7 @@ button {
 .morning { .gradient(#d0edf5, #e1e5f0) }
 
 body {
-  .evening;
+  .morning;
   .absolute;
 }
 
@@ -76,4 +80,5 @@ body {
 .grid {
   .flex-display(inline-flex);
   .flex-wrap(wrap);
+  .align-items(center);
 }

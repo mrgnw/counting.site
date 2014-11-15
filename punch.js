@@ -18,13 +18,33 @@ UI.registerHelper("hhss", function(timestamp) {
     return display;
 });
 
+function isOnTime(time) {
+  return time > goal;
+}
+
 // CLIENT
 if (Meteor.isClient) {
   Meteor.subscribe("days");
 
+  Template.day.helpers({
+  isOnTime: function (t) {
+    console.log("the time is " + t);
+    console.log(goal);
+    return (t < goal);
+  }
+});
+
   Template.body.helpers({
     days: function () { // Show most popular snacks first
       return Days.find({}, {sort: {votes: -1, data_ins: -1}});
+    },
+    isOnTime: function(time) {
+      // see if you met your goal
+      //
+      // async call
+      // Meteor.call('isOnTime', time);
+
+
     }
   });
 
@@ -41,9 +61,6 @@ if (Meteor.isClient) {
     "click .nuke": function (event) {
       Meteor.call("nuke");
       return false; // Prevent default form submit
-    },
-    "isOnTime": function(time) {
-      Meteor.call("isOnTime");
     }
   });
 
@@ -79,7 +96,7 @@ Meteor.methods({
   },
   isOnTime: function(time) {
     // Make the dates match
-    console.log(time < goal);
+    console.log("METEOR " + time < goal);
     return (time < goal);
   }
 

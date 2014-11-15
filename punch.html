@@ -19,12 +19,12 @@
 </body>
 
 <template name="day">
-  <button class="day">
-  <span class="{{#if isOnTime }}onTime{{/if}}">
+  <button class="{{#if isOnTime time }}day onTime
+  {{else}}day
+  {{/if}}">
 
     <span class="text">{{dd time}} </span>
     <br>
     <span class="text">{{hhss time}} </span>
-  </span>
   </button>
 </template>
