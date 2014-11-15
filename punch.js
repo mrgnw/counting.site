@@ -1,10 +1,11 @@
 Days = new Mongo.Collection("days");
 
 goal = new Date();
-goal.setHours(10, 24);
+goal.setHours(9,30,59);
 
-var unlimited = true;
+var unlimited = false;
 if (unlimited)(console.log("You. Are. LIMITLESS"));
+console.log(goal);
 
 var dayCount = 1
 function randomDate() {
@@ -13,7 +14,7 @@ function randomDate() {
     end.setHours(14, 26);
 
     var result = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
-    console.log("result: " + result);
+    // console.log("result: " + result);
     result.setDate(new Date().getDate() + dayCount);
     console.log("new result: " + result);
     dayCount += 1;
@@ -37,7 +38,12 @@ UI.registerHelper("hhss", function(timestamp) {
 });
 
 function isOnTime(time) {
-  return time <= goal;
+  // only compare hours (for testing).
+  var goal_copy = new Date();
+  goal_copy.setHours(goal.getHours());
+  console.log(goal_copy);
+
+  return (time <= goal_copy);
 }
 
 function isFirstToday(){
@@ -61,7 +67,7 @@ if (Meteor.isClient) {
 
   Template.body.helpers({
     days: function () { // Show most popular snacks first
-      return Days.find({}, {sort: {votes: -1, data_ins: -1}});
+      return Days.find({}, {sort: {}});
     },
   });
 
