@@ -7,7 +7,10 @@ var unlimited = false;
 if (unlimited)(console.log("You. Are. LIMITLESS"));
 console.log(goal);
 
-var dayCount = 1
+// TODO: Set dayCount dynamically
+  // get highest date. if > today, daycount = highest - today.
+var dayCount = 1;
+
 function randomDate() {
     var start = new Date();
     start.setHours(0,0,0);
@@ -15,9 +18,7 @@ function randomDate() {
     end.setHours(14, 26);
 
     var result = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
-    // console.log("result: " + result);
     result.setDate(new Date().getDate() + dayCount);
-    console.log("generated: " + result);
     dayCount += 1;
 
     return result;
@@ -78,16 +79,16 @@ if (Meteor.isClient) {
       var shouldAdd = true;
 
       if (isFirstToday() && !unlimited){
-        console.log('1st & normal');
+        // console.log('1st & normal');
         new_date = new Date();
       } else if (isFirstToday() && unlimited) {
-        console.log("1st & unlimited");
+        // console.log("1st & unlimited");
         new_date = new Date();
       } else if (unlimited) {
-        console.log("just unlimited");
+        // console.log("just unlimited");
         new_date = randomDate();
       } else {
-        console.log("Noooope. Not adding anything");
+        // console.log("Noooope. Not adding anything");
         shouldAdd = false;
       }
 
@@ -123,9 +124,7 @@ if (Meteor.isClient) {
 // METHODS
 Meteor.methods({
   addPunch: function (date) {
-    console.log("");
     console.log("Adding..." + date);
-    console.log("");
     Days.insert( {time: date} );
   },
   changeGoal: function (time) {
