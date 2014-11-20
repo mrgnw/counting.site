@@ -87,7 +87,7 @@ if (Meteor.isClient) {
         new_date = randomDate();
       } else {
         console.log("Noooope. Not adding anything");
-        should_add = false;
+        shouldAdd = false;
       }
 
       console.log("");
