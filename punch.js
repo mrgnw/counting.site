@@ -10,6 +10,7 @@ console.log(goal);
 var dayCount = 1
 function randomDate() {
     var start = new Date();
+    start.setHours(0,0,0);
     var end = new Date();
     end.setHours(14, 26);
 
@@ -90,10 +91,6 @@ if (Meteor.isClient) {
         shouldAdd = false;
       }
 
-      console.log("");
-      console.log(new_date);
-      console.log("");
-
       if (shouldAdd) {
         Meteor.call("addPunch", new_date);
       }
@@ -110,6 +107,7 @@ if (Meteor.isClient) {
       console.log("UNLIMITED: " + unlimited);
     },
     "click .nuke": function (event) {
+      dayCount = 1; // reset
       Meteor.call("nuke");
       return false; // Prevent default form submit
     }
