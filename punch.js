@@ -41,16 +41,6 @@ UI.registerHelper("hhss", function(timestamp) {
     return display;
 });
 
-function compareTime(time) {
-  // only compare hours (for testing).
-  console.log(time);
-  var goal_copy = new Date();
-  goal_copy.setHours(goal.getHours());
-  console.log(goal_copy);
-
-  return (time <= goal_copy);
-}
-
 function isFirstToday(){
   var start = new Date();
   start.setHours(0,0,0);
@@ -66,7 +56,20 @@ if (Meteor.isClient) {
 
   Template.day.helpers({
   compareTime: function (t) {
-    return (t < goal);
+    if (t){
+      var goal_copy = new Date(t.getTime());
+      goal_copy.setHours(goal.getHours());
+      console.log("");
+      console.log(t);
+      console.log(goal_copy);
+      var result = (t <= goal_copy);
+      console.log("= ", result);
+      return result;
+    }
+    else {
+      console.log(t + " is undefined")
+    }
+
   }
 });
 
@@ -138,11 +141,6 @@ Meteor.methods({
     Days.remove({})
     console.log("You shouldn't have pressed it! We're DOOOMED!");
   },
-  compareTime: function(time) {
-    // Make the dates match
-    console.log("Comparing... " + time < goal);
-    return (time < goal);
-  }
 
 });
 
