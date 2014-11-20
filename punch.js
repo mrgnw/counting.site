@@ -2,6 +2,8 @@ Days = new Mongo.Collection("days");
 
 goal = new Date();
 goal.setHours(9,30,59);
+//TODO: add onTime attribute to each day.
+// -> https://www.meteor.com/try/8
 
 var unlimited = false;
 if (unlimited)(console.log("You. Are. LIMITLESS"));
@@ -39,8 +41,9 @@ UI.registerHelper("hhss", function(timestamp) {
     return display;
 });
 
-function isOnTime(time) {
+function compareTime(time) {
   // only compare hours (for testing).
+  console.log(time);
   var goal_copy = new Date();
   goal_copy.setHours(goal.getHours());
   console.log(goal_copy);
@@ -62,7 +65,7 @@ if (Meteor.isClient) {
   Meteor.subscribe("days");
 
   Template.day.helpers({
-  isOnTime: function (t) {
+  compareTime: function (t) {
     return (t < goal);
   }
 });
@@ -135,9 +138,9 @@ Meteor.methods({
     Days.remove({})
     console.log("You shouldn't have pressed it! We're DOOOMED!");
   },
-  isOnTime: function(time) {
+  compareTime: function(time) {
     // Make the dates match
-    console.log("On Time: " + time < goal);
+    console.log("Comparing... " + time < goal);
     return (time < goal);
   }
 

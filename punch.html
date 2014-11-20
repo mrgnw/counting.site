@@ -12,17 +12,16 @@
       {{#each days}}
         {{> day}}
       {{/each}}
-      <button class="nuke">red button</button>
       <button class="debug">debug</button>
+      <button class="nuke">red button</button>
+
 
   </div>
 
 </body>
 
 <template name="day">
-  <button class="{{#if isOnTime time }}day onTime
-  {{else}}day
-  {{/if}}">
+  <button class="day {{#if compareTime time }}onTime{{/if}}">
 
     <span class="date">{{dd time}} </span>
     <br>
