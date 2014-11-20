@@ -16,7 +16,7 @@ function randomDate() {
     var result = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
     // console.log("result: " + result);
     result.setDate(new Date().getDate() + dayCount);
-    console.log("new result: " + result);
+    console.log("generated: " + result);
     dayCount += 1;
 
     return result;
@@ -67,19 +67,47 @@ if (Meteor.isClient) {
 
   Template.body.helpers({
     days: function () { // Show most popular snacks first
-      return Days.find({}, {sort: {}});
+      return Days.find({}, {sort: {time: -1}});
     },
   });
 
   Template.body.events({
     "click .new-punch": function (event) {
-      Meteor.call("addPunch");
+      var new_date;
+      var shouldAdd = true;
+
+      if (isFirstToday() && !unlimited){
+        console.log('1st & normal');
+        new_date = new Date();
+      } else if (isFirstToday() && unlimited) {
+        console.log("1st & unlimited");
+        new_date = new Date();
+      } else if (unlimited) {
+        console.log("just unlimited");
+        new_date = randomDate();
+      } else {
+        console.log("Noooope. Not adding anything");
+        should_add = false;
+      }
+
+      console.log("");
+      console.log(new_date);
+      console.log("");
+
+      if (shouldAdd) {
+        Meteor.call("addPunch", new_date);
+      }
+
       // event.target.text.value = "";  // Clear form
       return false; // Prevent default form submit
     },
     "submit .new-goal": function (event) {
       Meteor.call("changeGoal");
       return false;
+    },
+    "click .debug": function (event) {
+      unlimited = !unlimited;
+      console.log("UNLIMITED: " + unlimited);
     },
     "click .nuke": function (event) {
       Meteor.call("nuke");
@@ -96,14 +124,11 @@ if (Meteor.isClient) {
 
 // METHODS
 Meteor.methods({
-  addPunch: function () {
-    if (isFirstToday()) {
-      Days.insert({ time: new Date() });
-    } else if (unlimited){
-      Days.insert({ time: randomDate() });
-    } else {
-      console.log("You already have an entry on that date");
-    }
+  addPunch: function (date) {
+    console.log("");
+    console.log("Adding..." + date);
+    console.log("");
+    Days.insert( {time: date} );
   },
   changeGoal: function (time) {
     // TODO: update goal
