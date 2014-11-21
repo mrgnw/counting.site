@@ -69,14 +69,15 @@ if (Meteor.isClient) {
     else {
       console.log(t + " is undefined")
     }
-
-  }
+  },
+  debugOn: function () { return unlimited; }
 });
 
   Template.body.helpers({
     days: function () { // Show most popular snacks first
       return Days.find({}, {sort: {time: -1}});
     },
+    debugOn: function () { return unlimited; }
   });
 
   Template.body.events({

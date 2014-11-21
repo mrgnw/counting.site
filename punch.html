@@ -1,22 +1,24 @@
 <head> <title>Punch it!</title> </head>
 
 <body>
+  <button class="fixed new-punch">Ahoy!</button>
+  <button class="fixed debug {{#if debugOn }}debugOn{{/if}}">
+    dev mode
+  </button>
+  <button class="fixed nuke">red button</button>
+  <div style="margin:1em 0em 0em 1em;"></div>
   <div class="grid">
+    <div class="gap"></div>
     <!-- {{> loginButtons}}
     {{#if currentUser}}
     {{else}}
     <h3> ^^ Sign in to view & punch your times</h3>
     {{/if}} -->
-
-    <button class="new-punch">Ahoy!</button>
       {{#each days}}
         {{> day}}
       {{/each}}
-      <button class="debug">debug</button>
-      <button class="nuke">red button</button>
-
-
   </div>
+
 
 </body>
 
@@ -25,6 +27,6 @@
 
     <span class="date">{{dd time}} </span>
     <br>
-    <span class="text">{{hhss time}} </span>
+    <span class="time">{{hhss time}} </span>
   </button>
 </template>

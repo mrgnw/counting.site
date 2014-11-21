@@ -9,6 +9,9 @@
 
 @dim: rgba(255,255,255,.3);
 @clear: rgba(0,0,0,0);
+@hover-border: rgba(0,128,255, .5); // Can't go on water
+@yella: rgb(255,255, 0, .2);
+@blue: rgba(0,128,255,.9);
 
 .circled(@size:@1x) {
   width: @size;
@@ -17,12 +20,8 @@
   border-radius: @size/2;
 }
 
-.date {
-  font-size: @gap*3;
-  color: black;
-}
-.time {
-
+.fixed {
+  position: fixed;
 }
 
 button {
@@ -32,15 +31,56 @@ button {
 .new-punch {
   .circled();
   background-color: white;
-  &:active { color: rgb(0,128,255); }
+  color: black;
+  .bordered();
+  &:hover {
+    .bordered(.3em, @yella);
+  }
+}
+
+.nuke {
+  .circled();
+  background-color: rgba(170,0,0, .25);
+  color: white;
   .bordered;
+  right: 1em;
+  bottom: 0%;
+
+  &:hover {
+    background-color: rgba(170,0,0, .8);
+  }
+}
+
+.debug {
+  .nuke;
+  background-color: rgba(34,34,34, .25);
+  color: white;
+  right:1em;
+  bottom: 0% + (@1x*4 + @gap*2);
+
+  &:hover {
+    background-color: rgba(34,34,34, .8);
+  }
+
+}
+.debugOn {
+  .bordered(3px, #fa0)
+}
+
+.gap {
+  .circled();
+  width: @1x + @gap*2;
 }
 
 .day {
   .circled(3.5em);
   background-color: @clear;
-  color: rgba(0,0,0,.5);
   .bordered(2px, @dim);
+  .align-items(center);
+
+  &:hover {
+    .bordered(.1em, @hover-border);
+  }
 }
 
 .onTime {
@@ -49,17 +89,23 @@ button {
   .bordered(2px, white);
 }
 
-.nuke {
-  .circled();
-  background-color: #aa0000;
-  color: white;
-  .bordered;
+.date {
+  text-align: center;
+  font-size: @gap*3;
+  color: black;
 }
 
-.debug {
-  .nuke;
-  background-color: #ffaa00;
+.time {
+  color: rgba(0,0,0,.5);
 }
+
+.gradient(@from, @to){
+  background-image: linear-gradient(to bottom, @from, @to 100%);
+}
+
+.sunset { .gradient(#315481, #918e82) }
+.evening { .gradient(#211766, #315481) }
+.morning { .gradient(#d0edf5, #e1e5f0) }
 
 .absolute {
   background-attachment: fixed;
@@ -71,14 +117,6 @@ button {
   padding: 0px;
   margin: 0px;
 }
-
-.gradient(@from, @to){
-  background-image: linear-gradient(to bottom, @from, @to 100%);
-}
-
-.sunset { .gradient(#315481, #918e82) }
-.evening { .gradient(#211766, #315481) }
-.morning { .gradient(#d0edf5, #e1e5f0) }
 
 body {
   .morning;
@@ -93,4 +131,5 @@ body {
   .flex-display(inline-flex);
   .flex-wrap(wrap);
   .align-items(center);
+  .justify-content(flex-start);
 }
