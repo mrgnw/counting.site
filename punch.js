@@ -1,23 +1,20 @@
 Days = new Mongo.Collection("days");
 
-UI.registerHelper("plus", function(n) {
-    return n+1;
-});
-
-UI.registerHelper("minus", function(n) {
-    return n-1;
-});
-
 
 // CLIENT
 if (Meteor.isClient) {
   Meteor.subscribe("days");
 
-  Template.day.helpers(
+  Template.day.events({
+    "click .ring": function (event) {
+      Meteor.call('plus', this._id);
+      return this.n+1;
+    }
+  }
   );
 
   Template.body.helpers({
-    days: function () { // Show most popular snacks first
+    days: function () {
       return Days.find();
     },
   });
@@ -48,8 +45,18 @@ if (Meteor.isClient) {
 // METHODS
 Meteor.methods({
   newTally: function () {
-    console.log("Adding tally");
-    Days.insert( {'n': 1} );
+    console.log("Creating tally ring");
+    Days.insert( {'n': 0} );
+  },
+  plus: function (id) {
+    var newCount = Days.findOne(id).n+1;
+    console.log("NEW COUNT", newCount);
+    Days.update(id, {
+        $set: {'n': newCount}
+      });
+  },
+  minus: function (id) {
+
   },
   nuke : function () {
     // nuke the db
