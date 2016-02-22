@@ -46,7 +46,7 @@ if (Meteor.isClient) {
 Meteor.methods({
   newTally: function () {
     console.log("Creating tally ring");
-    Days.insert( {'n': 0} );
+    Days.insert( {'n': 0, 'name': ''} );
   },
   plus: function (id) {
     var newCount = Days.findOne(id).n+1;

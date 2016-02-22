@@ -1,7 +1,7 @@
 <head> <title>Punch it!</title> </head>
 
 <body>
-  <button class="fixed new-punch">Ahoy!</button>
+  <button class="fixed new-punch">+</button>
   <button class="fixed nuke">red button</button>
   <div style="margin:1em 0em 0em 1em;"></div>
   <div class="grid">
@@ -20,6 +20,7 @@
 </body>
 
 <template name="day">
+  {{name}}
   <button class="ring">
     <span class="count">{{n}} </span>
   </button>
