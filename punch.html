@@ -1,4 +1,8 @@
-<head> <title>Punch it!</title> </head>
+<head>
+  <title>Tally tracker</title>
+  <link rel="icon" sizes="16x16 32x32" href="/favicon.png">
+</head>
+
 
 <body>
   <button class="fixed new-punch">+</button>
@@ -20,8 +24,10 @@
 </body>
 
 <template name="day">
-  {{name}}
   <button class="ring">
     <span class="count">{{n}} </span>
   </button>
+  <span>
+    <input style="width: 40px" type="text" value="{{name}}">
+  </span>
 </template>

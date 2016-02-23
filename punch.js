@@ -9,9 +9,11 @@ if (Meteor.isClient) {
     "click .ring": function (event) {
       Meteor.call('plus', this._id);
       return this.n+1;
-    }
-  }
-  );
+    },
+    'keyup input[type=text]': _.throttle(function(event) {
+    Todos.update(this._id, {$set: {text: event.target.value}});
+  }, 300),
+});
 
   Template.body.helpers({
     days: function () {

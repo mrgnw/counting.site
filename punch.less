@@ -130,3 +130,21 @@ body {
   .align-items(center);
   .justify-content(flex-start);
 }
+
+input[type="text"] {
+    background: transparent;
+    cursor: pointer;
+
+    &:focus { cursor: text; }
+  }
+
+.list-item { border-top: 1px solid #f0f9fb; }
+input[type="text"] { .flex(1); }
+
+input {
+    background-color: transparent;
+    border: 0px solid;
+    height: 20px;
+    width: 160px;
+    color: #CCC;
+}
