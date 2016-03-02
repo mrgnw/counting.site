@@ -57,25 +57,27 @@ Meteor.methods({
     Days.insert( {'n': 0, 'name': ''} );
   },
   add: function(id, x) {
-    var newCount = Days.findOne(id).n+x;
-    console.log("ADD", x, "=", newCount);
+    var n = Days.findOne(id).n;
+    var newCount = n+x;
+
+    if(x < 0) { console.log(n + "" + x, "=", newCount); }
+    else { console.log(n + "+" + x, "=", newCount); }
+
     Days.update(id, {
       $set: {'n': newCount}
     });
   },
   plus: function (id) {
-    var newCount = Days.findOne(id).n+1;
-    console.log("NEW COUNT", newCount);
-    Days.update(id, {
-        $set: {'n': newCount}
-      });
+    Meteor.call("add", id, 1, function(error, result){
+      if(error){  console.log("error adding", error);  }
+      if(result){ console.log("+1"); }
+    });
   },
   minus: function (id) {
-    var newCount = Days.findOne(id).n-1;
-    console.log("NEW COUNT", newCount);
-    Days.update(id, {
-        $set: {'n': newCount}
-      });
+    Meteor.call("add", id, -1, function(error, result){
+      if(error){  console.log("error adding", error);  }
+      if(result){ console.log("+1"); }
+    });
   },
   nuke : function () {
     // nuke the db
