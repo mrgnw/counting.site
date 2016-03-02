@@ -32,6 +32,7 @@ if (Meteor.isClient) {
   });
 
   Template.body.events({
+    // todo: keyboard shortcuts - keycode.info/
     "click .new-punch": function (event) {
       Meteor.call("newTally");
       // event.target.text.value = "";  // Clear form
