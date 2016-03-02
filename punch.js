@@ -10,9 +10,19 @@ if (Meteor.isClient) {
       Meteor.call('plus', this._id);
       return this.n+1;
     },
-    'keyup input[type=text]': _.throttle(function(event) {
-    Todos.update(this._id, {$set: {text: event.target.value}});
-  }, 300),
+    "mousedown .ring": function (event) {
+         if (event.button == 2) {
+             // this code will run on right-click
+             Meteor.call('minus', this._id);
+             return this.n-1;
+           }
+       },
+    "contextmenu .ring": function (event) {
+      return false;
+    }
+  //   'keyup input[type=text]': _.throttle(function(event) {
+  //   Todos.update(this._id, {$set: {text: event.target.value}});
+  // }, 300),
 });
 
   Template.body.helpers({
@@ -26,10 +36,6 @@ if (Meteor.isClient) {
       Meteor.call("newTally");
       // event.target.text.value = "";  // Clear form
       return false; // Prevent default form submit
-    },
-    "click .debug": function (event) {
-      unlimited = !unlimited;
-      console.log("UNLIMITED: " + unlimited);
     },
     "click .nuke": function (event) {
       Meteor.call("nuke");
@@ -50,6 +56,13 @@ Meteor.methods({
     console.log("Creating tally ring");
     Days.insert( {'n': 0, 'name': ''} );
   },
+  add: function(id, x) {
+    var newCount = Days.findOne(id).n+x;
+    console.log("ADD", x, "=", newCount);
+    Days.update(id, {
+      $set: {'n': newCount}
+    });
+  },
   plus: function (id) {
     var newCount = Days.findOne(id).n+1;
     console.log("NEW COUNT", newCount);
@@ -58,7 +71,11 @@ Meteor.methods({
       });
   },
   minus: function (id) {
-
+    var newCount = Days.findOne(id).n-1;
+    console.log("NEW COUNT", newCount);
+    Days.update(id, {
+        $set: {'n': newCount}
+      });
   },
   nuke : function () {
     // nuke the db
