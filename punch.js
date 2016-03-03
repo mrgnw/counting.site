@@ -29,6 +29,13 @@ if (Meteor.isClient) {
     days: function () {
       return Days.find();
     },
+    speedyTap: function() {
+      if ('addEventListener' in document) {
+        document.addEventListener('DOMContentLoaded', function() {
+          FastClick.attach(document.body);
+        }, false);
+      }
+    }
   });
 
   Template.body.events({
