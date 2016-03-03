@@ -55,8 +55,12 @@ if (Meteor.isClient) {
 Meteor.methods({
   newTally: function () {
     console.log("Creating tally ring");
-    // add background randomization
-    Days.insert( {'n': 0, 'name': '', color:''} );
+    // uses rzymek:randomcolor
+    newColor = randomColor({
+      luminosity: 'dark',
+      hue: 'purple'
+    });
+    Days.insert( {'n': 0, 'name': '', color:newColor} );
   },
   add: function(id, x) {
     var n = Days.findOne(id).n;
