@@ -10,6 +10,9 @@ if (Meteor.isClient) {
       Meteor.call('plus', this._id);
       return this.n+1;
     },
+    // "touchstart .ring": function (event){
+    //   Meteor.call('plus', this._id);
+    // },
     "mousedown .ring": function (event) {
          if (event.button == 2) {
              // this code will run on right-click
