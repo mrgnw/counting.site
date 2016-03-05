@@ -22,10 +22,11 @@ Template.day.events({
     Session.set("selectedCount", nullSelection);
     // console.log('reset the count. Zero, Ah, ha, ha');
   },
-  // 'longlick .ring' : function (event) {
-  //   Session.set("selectedCount", this._id);
-  //   alert("touched", Session.get('selectedCount'));
-  // },
+  // using hammer.js
+  'press .ring' : function (event) {
+    Session.set("selectedCount", this._id);
+    alert("touched", Session.get('selectedCount'));
+  },
 
 
 });
