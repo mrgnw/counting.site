@@ -66,8 +66,8 @@ if (Meteor.isClient) {
       // event.target.text.value = "";  // Clear form
       return false; // Prevent default form submit
     },
-    "click .nuke": function (event) {
-      Meteor.call("nuke");
+    "click .clear": function (event) {
+      Meteor.call("clear", Meteor.userId());
       return false; // Prevent default form submit
     }
   });
@@ -134,6 +134,9 @@ if (Meteor.isServer) {
     },
     delete: function (id) {
       Days.remove({_id: id});
+    },
+    clear: function (userToClear) {
+      Days.remove({userId: userToClear});
     }
   })
 }
