@@ -6,7 +6,7 @@ globalHotkeys.add ({
 
 globalHotkeys.add ({
   combo : "del",
-  callback : function() { Meteor.call('delete', Session.get('selectedCount'));}
+  callback : function() { Meteor.call('delete', Session.get('selectedCount')); },
 })
 
 globalHotkeys.add ({

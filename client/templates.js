@@ -22,6 +22,10 @@ Template.day.events({
     Session.set("selectedCount", nullSelection);
     // console.log('reset the count. Zero, Ah, ha, ha');
   },
+  'taphold .ring' : function (event) {
+    Session.set("selectedCount", this._id);
+    alert("touched", Session.get('selectedCount'));
+  },
 
 
 });
