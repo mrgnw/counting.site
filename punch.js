@@ -3,7 +3,20 @@ Days = new Mongo.Collection("days");
 
 // CLIENT
 if (Meteor.isClient) {
+
   Meteor.subscribe("days");
+  var nullSelection = 'Dracula! Ah, ha, ha';
+  Session.set('selectedCount', nullSelection);
+
+  globalHotkeys = new Hotkeys();
+  globalHotkeys.add({
+      combo : "backspace",
+      callback : function(){
+        Meteor.call('delete', Session.get('selectedCount'));
+        console.log("SHOULD DELETE", Session.get('selectedCount'));
+        }
+      })
+
 
   Template.day.events({
     "click .ring": function (event) {
@@ -19,7 +32,18 @@ if (Meteor.isClient) {
        },
     "contextmenu .ring": function (event) {
       return false;
-    }
+    },
+    'mouseover .ring': function (event) {
+      // Meteor.call("delete", this._id);
+      Session.set("selectedCount", this._id);
+      // console.log("ID", this._id);
+    },
+    'mouseout .ring' : function (event) {
+      Session.set("selectedCount", nullSelection);
+      // console.log('reset the count. Zero, Ah, ha, ha');
+    },
+
+
 });
 
   Template.body.helpers({
@@ -96,20 +120,20 @@ Meteor.methods({
       if(result){ console.log("+1"); }
     });
   },
-  nuke : function () {
-    // nuke the db
-    Days.remove({})
-    console.log("You shouldn't have pressed it! We're DOOOMED!");
-  },
 
 });
 
 
 // SERVER
 if (Meteor.isServer) {
-  Meteor.publish("days", function () {
-    return Days.find();
-  });
-
-  // publish goal
+  Meteor.methods({
+    nuke : function() {
+      // nuke the db
+      Days.remove({})
+      console.log("You shouldn't have pressed it! We're DOOOMED!");
+    },
+    delete: function (id) {
+      Days.remove({_id: id});
+    }
+  })
 }
