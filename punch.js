@@ -68,9 +68,16 @@ Meteor.methods({
     // uses rzymek:randomcolor
     newColor = randomColor({
       luminosity: 'dark',
-      hue: 'purple'
+      // hue: 'purple'
     });
-    Days.insert( {'n': 0, 'name': '', color:newColor} );
+    // if logged in
+    if(Meteor.userId()) {
+      Days.insert({'n':0, 'name': '', color:newColor, userId: Meteor.userId()})
+    }
+    else { // not logged in
+      Days.insert( {'n': 0, 'name': ''} );
+    }
+
   },
   add: function(id, x) {
     var n = Days.findOne(id).n;
