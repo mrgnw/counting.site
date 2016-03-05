@@ -3,6 +3,13 @@ Days = new Mongo.Collection("days");
 
 // CLIENT
 if (Meteor.isClient) {
+  // prevent going back when pressing backspace
+  $(document).on("keydown", function (event) {
+   if (event.keyCode === 8) {
+     Meteor.call('delete', Session.get('selectedCount'));
+     event.preventDefault();
+   }
+ });
 
   Meteor.subscribe("days");
   var nullSelection = 'Dracula! Ah, ha, ha';
