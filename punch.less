@@ -13,6 +13,36 @@
 @yella: rgb(255,255, 0, .2);
 @blue: rgba(0,128,255,.9);
 
+
+.page-container {
+  height: 100%;
+  .flex-display();
+}
+
+.nav {
+  .flex-shrink(0);
+}
+
+@media all and (orientation:portrait) {
+  .page-container{
+    .flex-direction(column);
+  }
+  .nav {
+    height: @2x;
+    .sunset-right;
+  }
+}
+
+@media all and (orientation:landscape) {
+  .page-container{
+    .flex-direction(row);
+  }
+  .nav {
+    width: @2x;
+    .sunset;
+  }
+}
+
 .circled(@size:@1x) {
   width: @size;
   height: @size;
@@ -30,18 +60,6 @@
    -webkit-user-select: none;
    -ms-user-select: none;
    user-select: none;
-}
-
-.page-container {
-  height: 100%;
-  .flex-display();
-  .flex-direction(row);
-}
-
-.nav {
-  width: @2x;
-  .sunset;
-  .flex-shrink(0);
 }
 
 .new-punch {
@@ -91,7 +109,11 @@
 .gradient(@from, @to){
   background-image: linear-gradient(to bottom, @from, @to 100%);
 }
+.gradient-right(@from, @to){
+  background-image: linear-gradient(to right, @from, @to 100%);
+}
 
+.sunset-right { .gradient-right(#315481, #cc9064) }
 .sunset { .gradient(#315481, #cc9064) }
 .evening { .gradient(#211766, #315481) }
 .twilight { .gradient(#210e42, #211766) }

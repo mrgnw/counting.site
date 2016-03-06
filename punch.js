@@ -48,8 +48,6 @@ if (Meteor.isServer) {
     add: function(id, x) {
       var n = Days.findOne(id).n;
       var newCount = n + x;
-      // if(x < 0) { console.log(n + "" + x, "=", newCount); }
-      // else { console.log(n + "+" + x, "=", newCount); }
 
       Days.update(id, {
         $set: {'n': newCount}
@@ -68,7 +66,7 @@ if (Meteor.isServer) {
     },
 
     nuke : function() {
-      // nuke the db
+      // nuke the ENTIRE db
       Days.remove({})
       console.log("You shouldn't have pressed it! We're DOOOMED!");
     },
