@@ -6,18 +6,19 @@
 
 
 <body>
-  <button class="ring">
-    <div class="count">{{>loginButtons}}</div>
-  </button>
-
-
-  <button class="fixed clear">clear</button>
-  <!-- <div style="margin:1em 0em 0em 1em;"></div> -->
-  <div class="grid">
-    <button class="new-punch">+</button>
+  <div class="container">
+    <div class="nav">
+      <button class="ring">
+        <div class="count">{{>loginButtons}}</div>
+      </button>
+      <button class="ring new-punch">+</button>
+      <button class="ring clear">clear</button>
+    </div>
+    <div class="grid">
       {{#each days}}
         {{> day}}
       {{/each}}
+    </div>
   </div>
 
 
