@@ -46,12 +46,12 @@ Template.body.helpers({
 
 Template.body.events({
   // todo: keyboard shortcuts - keycode.info/
-  "click .new-punch": function (event) {
+  "click #new-punch": function (event) {
     Meteor.call("newTally");
     // event.target.text.value = "";  // Clear form
     return false; // Prevent default form submit
   },
-  "click .clear": function (event) {
+  "click #clear-btn": function (event) {
     Meteor.call("clear", Meteor.userId());
     return false; // Prevent default form submit
   }

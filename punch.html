@@ -6,13 +6,13 @@
 
 
 <body>
-  <div class="container">
+  <div class="page-container">
     <div class="nav">
       <button class="ring">
         <div class="count">{{>loginButtons}}</div>
       </button>
-      <button class="ring new-punch">+</button>
-      <button class="ring clear">clear</button>
+      <button id="new-punch" class="ring">+</button>
+      <button id="clear-btn" class="ring">clear</button>
     </div>
     <div class="grid">
       {{#each days}}
