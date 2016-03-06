@@ -61,6 +61,11 @@ if (Meteor.isServer) {
     minus: function (id) {
       Meteor.call("add", id, -1);
     },
+    setCount: function(id, x) {
+      Days.update(id, {
+        $set: {'n': x}
+      });
+    },
 
     nuke : function() {
       // nuke the db

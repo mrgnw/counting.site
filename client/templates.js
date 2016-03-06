@@ -22,12 +22,6 @@ Template.day.events({
     Session.set("selectedCount", nullSelection);
     // console.log('reset the count. Zero, Ah, ha, ha');
   },
-  // using hammer.js
-  'press .ring' : function (event) {
-    Session.set("selectedCount", this._id);
-    alert("touched", Session.get('selectedCount'));
-  },
-
 
 });
 

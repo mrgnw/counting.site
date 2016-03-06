@@ -20,3 +20,23 @@ globalHotkeys.add ({
 })
 
 // 0123456789
+globalHotkeys.add ({
+  combo : "0",
+  callback : function() {
+    Meteor.call('setCount', Session.get('selectedCount'), 0);
+  }
+})
+
+globalHotkeys.add ({
+  combo : "2",
+  callback : function() {
+    Meteor.call('add', Session.get('selectedCount'), 2);
+  }
+})
+
+globalHotkeys.add ({
+  combo : "3",
+  callback : function() {
+    Meteor.call('add', Session.get('selectedCount'), 3);
+  }
+})
