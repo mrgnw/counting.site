@@ -8,11 +8,11 @@
 <body>
   <div class="page-container">
     <div class="nav">
-      <button class="ring">
-        <div class="count">{{>loginButtons}}</div>
-      </button>
-      <button id="new-punch" class="ring">+</button>
-      <button id="clear-btn" class="ring">clear</button>
+      <div class="ring nav-item">
+        <span class="count">{{>loginButtons}}</span>
+      </div>
+      <div id="new-punch" class="ring nav-item">+</div>
+      <div id="clear-btn" class="ring nav-item">clear</div>
     </div>
     <div class="grid">
       {{#each days}}
@@ -25,9 +25,9 @@
 </body>
 
 <template name="day">
-  <button class="ring" style="background-color: {{color}}">
+  <div class="ring" style="background-color: {{color}}">
     <span class="count">{{n}} </span>
-  </button>
+  </div>
   <span>
     <!-- <input style="width: 40px" type="text" value="{{name}}"> -->
   </span>
