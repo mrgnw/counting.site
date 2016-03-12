@@ -10,6 +10,11 @@ globalHotkeys.add ({
 })
 
 globalHotkeys.add ({
+  combo : "c",
+  callback : function() { Meteor.call('changeColor', Session.get('selectedCount')); },
+})
+
+globalHotkeys.add ({
   combo : "-",
   callback : function() { Meteor.call('minus', Session.get('selectedCount'));}
 })

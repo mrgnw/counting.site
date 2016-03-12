@@ -24,12 +24,13 @@ if (Meteor.isClient) {
 
 // METHODS
 Meteor.methods({
+
   newTally: function () {
     console.log("Creating tally ring");
     // uses rzymek:randomcolor
     newColor = randomColor({
       luminosity: 'dark',
-      // hue: 'purple'
+      hue: 'purple'
     });
     // if logged in
     if(Meteor.userId()) {
@@ -63,6 +64,17 @@ if (Meteor.isServer) {
       Days.update(id, {
         $set: {'n': x}
       });
+    },
+    changeColor: function(id) {
+      if(Meteor.userId()) {
+        c = randomColor({
+          luminosity: 'dark',
+        });
+        // update id with color: c
+        Days.update(id, {
+          $set: {'color': c}
+        });
+      }
     },
 
     nuke : function() {
