@@ -22,6 +22,7 @@
 .nav {
   .flex-shrink(0);
   .flex-display();
+  .justify-content(space-around);
 }
 
 @media all and (orientation:portrait) {
@@ -33,6 +34,9 @@
     .sunset-right;
     .flex-direction(row);
   }
+  .grid {
+    .flex-direction(row);
+  }
 }
 
 @media all and (orientation:landscape) {
@@ -42,6 +46,9 @@
   .nav {
     width: @2x;
     .sunset;
+    .flex-direction(column);
+  }
+  .grid {
     .flex-direction(column);
   }
 }
@@ -142,7 +149,6 @@
 body {
   .evening;
   .absolute;
-  overflow: hidden;
 }
 
 #login-buttons {
@@ -150,6 +156,7 @@ body {
 }
 
 .grid {
+  .flex-display();
   .flex-wrap(wrap);
   .justify-content(flex-start);
 }
