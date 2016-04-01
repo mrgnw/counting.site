@@ -22,7 +22,6 @@
 .nav {
   .flex-shrink(0);
   .flex-display();
-  .justify-content(space-around);
 }
 
 @media all and (orientation:portrait) {
@@ -33,6 +32,7 @@
     height: @2x;
     .sunset-right;
     .flex-direction(row);
+    .justify-content(space-around);
   }
   .grid {
     .flex-direction(row);
@@ -153,6 +153,10 @@ body {
 
 #login-buttons {
   display: block;
+}
+
+.grid-container {
+  .flex-display();
 }
 
 .grid {
