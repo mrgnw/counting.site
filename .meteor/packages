@@ -4,7 +4,6 @@
 # but you can also edit it by hand.
 
 less
-accounts-ui
 accounts-password
 standard-minifiers
 meteor-base
@@ -26,3 +25,4 @@ accounts-twitter
 flowkey:hotkeys
 chriswessels:hammer
 rubaxa:sortable
+accounts-ui
